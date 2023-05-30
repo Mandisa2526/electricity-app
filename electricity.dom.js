@@ -14,39 +14,28 @@ let totalUnitsAvailableEl = document.querySelector(".unitsAvailable")
 
 // Factory Function instance 
 const electricity =  Electricity();
+// electricity.totalUnitsBought(50);
+// electricity.totalAmountSpent(100);
 
-let topup = 0;
-let unitsBoughts = 0;
-let unitsUsed = 0;
+
+// let topup = 0;
+// let unitsBoughts = 0;
+// let unitsUsed = 0;
 // DOM events here 
 function topUpElectricit(){
     var checkedRadioBtnElem = document.querySelector("input[name='buyElectricity']:checked");
-    if(checkedRadioBtnElem){
-        var buyElectricityRadio = checkedRadioBtnElem.value
-        if(buyElectricityRadio === "10"){
-            topup += 10; 
-            unitsBoughts += 7;
-            
-        }
-        if (buyElectricityRadio === "20") {
-            topup += 20;
-            unitsBoughts += 14;
-
-        }
-        if (buyElectricityRadio === "50") {
-            topup += 50;
-            unitsBoughts += 35;
-        }
+    
+        var buyElectricityRadio = checkedRadioBtnElem.value;
         if (buyElectricityRadio === "advance") {
-            topup += 30;
-            unitsBoughts += 21;
+            
+            electricity.topUpElectricity(buyElectricityRadio);
+
+        } else {
+            electricity.topUpElectricity(Number(buyElectricityRadio));
         }
-        
-       
-    }
-    totalAmountSpentElem.innerHTML = topup;
-    totalUnitsBoughtElem.innerHTML = unitsBoughts;
-    totalUnitsAvailableEl.innerHTML = unitsBoughts;
+    totalAmountSpentElem.innerHTML = electricity.totalAmountSpent();
+    totalUnitsBoughtElem.innerHTML = electricity.totalUnitsBought();
+    totalUnitsAvailableEl.innerHTML = electricity.getUnitsAvailable();
 
 
 
@@ -56,29 +45,11 @@ buyBtnElem.addEventListener('click',topUpElectricit)
 
 function usageButton(){
     var checkedUsageRadioBtnElem = document.querySelector("input[name='useElectricity']:checked");
+    let useElectricity = checkedUsageRadioBtnElem.value;
    
-    if (checkedUsageRadioBtnElem) {
-        let useElectricity = checkedUsageRadioBtnElem.value;  
-        if (useElectricity === "TV") {
-            unitsBoughts -= 3;
-        }
-        if (useElectricity === "stove") {
-            unitsBoughts -= 10;
-        }
-        if (useElectricity === "Fridge") {
-            unitsBoughts -= 13;
-        }
-        if (useElectricity === "Kettle") {
-            unitsBoughts -= 5;
-        }
-        if (!useElectricity) {
-           totalUnitsBoughtElem.classList.remove();
-        }
-        
-
-    }
+    electricity.useAppliance(useElectricity);
     
-    totalUnitsAvailableEl.innerHTML = unitsBoughts;
+    totalUnitsAvailableEl.innerHTML = electricity.getUnitsAvailable();
   
 }
 usageBtnElem.addEventListener('click',usageButton)

@@ -10,6 +10,7 @@ function Electricity() {
         'TV': 3, 
         'Fridge': 13
     };
+    localStorage.setItem(appliances, 'Value');
     
 
     function topUpElectricity(amount) {
@@ -52,6 +53,7 @@ function Electricity() {
     * other wise return false and do nothing.
     */
     function useAppliance(appliance) {
+        console.log(appliance);
         if (unitsAvailable >= appliances[appliance]) {
             unitsAvailable -= appliances[appliance]
             return true;
